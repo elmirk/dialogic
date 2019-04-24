@@ -1,0 +1,129 @@
+**********************************************************************
+*                      config.txt                                    *
+**********************************************************************
+*
+* SCTP level configuration
+*
+CNSYS:IPADDR=172.27.41.69,IPADDR2=172.27.41.49;
+SNSLI:SNLINK=1,IPADDR=172.27.32.35,IPADDR2=172.27.32.3,HPORT=2908,PPORT=2908,SNEND=C,SNTYPE=M3UA;
+*
+* set timer between SCTP heartbeats = 5 min (default value = 1000 ms)
+CNTOS:TTYPE=SCTP,TO=HBT,TMSEC=300000;
+
+* M3UA level configuration
+*
+SNAPI:LAS=1,OPC=14146,TRMD=LS;
+SNRAI:RAS=1,DPC=14140,TRMD=LS;
+SNALI:SNAL=1,RAS=1,SNLINK=1;
+SNLBI:SNLB=1,LAS=1,RAS=1;
+
+**********************************************************************
+*                            SCCP                                    *
+**********************************************************************
+* Configure SCCP module:
+*ext_options, bits 0 to 15:
+*bit 2 -- SCPXF_DEL_CGPC If set, this option will remove any point code present in the
+*calling party address. If not set, the behaviour determined by the SCPXF_NO_CGP option will be followed.
+*Note: This option is typically used in conjunction with SCPXF_CG_RTE_GT.
+*
+*bit 3 -- SCPXF_CG_RTE_GT If set and a GT is present, this option will change the routing
+*indicator to ‘Route on GT’. If not set or no GT is present, then the address will not be changed.
+*Note: This option is typically used in conjunction with SCPXF_DEL_CGPC.
+*
+* SCCP_CONFIG <local_spc> <ssf> <options> [<send_uis>]
+*14133 -- MAP_IN
+*0x8 -- MSC,0x5 -- map
+*0x0102 -- SCPF_XMPRIM If set to 1, extended format management primitives will be used. + SCPF_PLIST Reserved, set to 0. 
+*0x01 -- Send_User In Service (UIS)
+*SCCP_CONFIG 14133 0x8 0x0102 0x01
+*SCCP_CONFIG 14133 12 0x50000
+SCCP_CONFIG 14146 12 0xc0000 0x01
+
+* Define Remote Signaling Points:
+* SCCP_SSR <ssr_id> RSP <remote_spc> <flags> <pc_mask>
+*<flags> If set to 0, the heartbeat detection mechanism is disabled. This bit must always be set to zero if the resource is not an LSS.
+*Bits set to 0 indicate that the corresponding bit position in the transmit message destination point code must match the bit position of the <remote_spc>
+*OK
+SCCP_SSR 1 RSP 14140 0 0
+
+* Define Local Sub-Systems:
+* SCCP_SSR <ssr_id> LSS <local_ssn> <module_id> <flags> <protocol>
+* 0x5 -- map, 0x15 -- MAP id
+SCCP_SSR 2 LSS 0x08 0x2e 0 MAP
+SCCP_SSR 3 LSS 0x06 0x2e 0 MAP
+
+*SCCP_SSR 4 LSS 0x07 0x16 0 TCAP
+SCCP_SSR 6 LSS 0x93 0x2e 0 MAP
+
+* Define Remote Sub-Systems:
+* SCCP_SSR <ssr_id> RSS <remote_spc> <remote_ssn> <flags>
+SCCP_SSR 4 RSS 14140 0x08 0
+SCCP_SSR 5 RSS 14140 0x06 0
+
+*SCCP_SSR 5 RSS 14140 0x0
+
+**********************************************************************
+*                      SCCP GT translations                          *
+**********************************************************************
+*SCCP_GTT_PATTERN <pattern_id> <addr_indicator>  <pc>   <ssn> <gt>
+* patterns to match with smsrouter SCCP GT
+*
+* 1: smsrouter SCCP GT pattern
+* 2: smsc SCCP GT pattern
+*
+SCCP_GTT_PATTERN 1 0x12 0x0000 0x06 0x001104 79506651029
+SCCP_GTT_PATTERN 2 0x12 0x0000 0x08 0x001104 79506651010
+
+*translated-to addresses
+* 1: smsrouter DPC
+* 2: msc DPC
+*
+SCCP_GTT_ADDRESS 1 0x11 14146 0 0x001104 -
+SCCP_GTT_ADDRESS 2 0x11 14140 0 0x001104 -
+
+* sccp gt translation rules
+
+SCCP_GTT 1 K 1
+SCCP_GTT 2 K 2
+
+**********************************************************************
+*                            SCCP trace                              *
+**********************************************************************
+
+SCCP_TRACE 0x0 0x0 0x7
+
+**********************************************************************
+*                            TCAP                                    *
+**********************************************************************
+* Configure TCAP Trace
+* TCAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
+* comented 17072017 TCAP_TRACE 0x7 0xf 0x0
+*tcap trace configuration moved to messages
+*TCAP_TRACE 0x7 0xf 0xf
+*
+*The use of the TCAP_CONFIG command is not required and TCAP is configured 
+*with default values if the TCAP_CONFIG command is not present.
+*example TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0000 0
+*
+*TCAP_TRACE 0x7 0x7 0x7
+TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0200 0
+TCAP_TRACE 0x0 0x0 0x0
+
+**********************************************************************
+*                            MAP                                     *
+**********************************************************************
+*
+*
+* MAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
+*MAP_TRACE 0xf 0xf 0x4
+*MAP_TRACE 0x7 0x7 0x7
+**********************************************************************
+* MAP_CONFIG <options>
+MAP_CONFIG 0x0
+*
+* MAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
+MAP_TRACE 0x3 0x3 0x0
+
+**********************************************************************
+*                      end of file                                   *
+**********************************************************************

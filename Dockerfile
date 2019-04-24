@@ -1,9 +1,5 @@
 FROM ubuntu:18.04
 
-#COPY otp_src_21.1.tar.gz /opt
-#WORKDIR /opt
-#
-# install erlang libs for c node
 #
 #RUN set -xe \
 #        && apt-get update && apt-get install -y gcc make  \
@@ -26,7 +22,7 @@ COPY dpklnx.Z /opt/DSI/
 WORKDIR /opt/DSI
 RUN set -xe \
  && dpkg --add-architecture i386 \
- && apt-get update && apt-get install -y --auto-remove libc6-i386 lksctp-tools:i386 \
+ && apt-get update && apt-get install -y --auto-remove libc6-i386 lksctp-tools:i386 nano \
  && rm -rf /var/lib/apt/lists/* \
  && tar --no-same-owner -zxvf dpklnx.Z \
  && echo "/opt/DSI/32" >> /etc/ld.so.conf \
@@ -36,11 +32,9 @@ RUN set -xe \
  && apt-get clean
 
 #
-# copy cnode sources into docker and compile
+# copy config files and scripts into image
 #
-#RUN mkdir src
-
-COPY system.txt bootstrap.sh start_gctload.sh /opt/DSI/
+COPY system.txt config.txt sms_router.lic bootstrap.sh start_gctload.sh /opt/DSI/
 #WORKDIR DSI
 #RUN set -xe \
 #        && make map_user
