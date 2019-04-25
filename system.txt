@@ -3,13 +3,13 @@
 * Dummy System Configuration File (system.txt) for use with
 * the DSI Development Package.
 *
-* Updated by Elmir Karimullin, elmir.karimullin@gmail.com, 26/03/2019
+* Updated by Elmir Karimullin, elmir.karimullin@gmail.com, 25/04/2019
 * During deployment in docker modified automatically for DEV/PROD environments
 * TODO:
 * prepare headers like in config.txt
 * investigate values for num msg and num lmsg possible to use in prod! in o*dkcer
+*
 ********************************************************************************
-
 VERIFY
 LOCAL 0x00            * tim - Timer task
 *
@@ -18,38 +18,19 @@ LOCAL 0x00            * tim - Timer task
 LOCAL 0xcf            * s7_mgt - Management/config task
 *LOCAL 0xc2
 LOCAL 0xef            * s7_log - Display and logging utility  
-*LOCAL 0x3d            * module id for intu application
-*LOCAL 0x2d            * mtu
-LOCAL 0x2e			  *smsrouter
+LOCAL 0x5d	      * module id for health_check (run at once type app)
+LOCAL 0x2d            * dsistat
+LOCAL 0x2e	      * smsrouter
 *LOCAL 0xed	      * monitor module (user application)
-
 *
-* Modules that optionally run on the host:
+* Modules for ss7 stack:
 *
-*LOCAL         0x22              * MTP3 module (and SS7LD 'mtp' and 'isup' run-mode)
-LOCAL 0xd1                       * SCTP native
-LOCAL 0xd2                       * M3UA module
-
+LOCAL 0xd1            * SCTP native
+LOCAL 0xd2            * M3UA module
 LOCAL 0x33            * SCCP module
 LOCAL 0x14            * TCAP module
-LOCAL 0x15            * MAP module !!!!!!!
+LOCAL 0x15            * MAP module
 *
-*REDIRECT        0x10    0x20    * CT bus/Clocking control module
-*REDIRECT        0x8e    0x20    * On-board management module
-*
-* Modules that optionally run on the board (all redirected via ssd):
-*
-* REDIRECT        0x22    0x20    * MTP3 module (except for SS7LD 'mtp' and 'isup' run modes)
-* REDIRECT      0x23    0x20    * ISUP module (except for SS7LD 'mtp' and 'isup' run modes)
-* REDIRECT      0x4a    0x20    * TUP module
-* REDIRECT      0x33    0x20    * SCCP module
-* REDIRECT      0x14    0x20    * TCAP module
-* REDIRECT      0x15    0x20    * MAP module
-* REDIRECT      0x25    0x20    * IS41 module
-* REDIRECT      0x35    0x20    * INAP module
-*
-*
-
 * For SIGTRAN systems using SCTPN the following REDIRECT is required:
 REDIRECT 0xd0 0xd1
 
@@ -69,14 +50,13 @@ NUM_MSGS        5000
 * Number of 'long' messages (used for certain TCAP based applications)
 NUM_LMSGS      2000
 VERIFY
-
 *
 * Now start-up all local tasks:
 *
 FORK_PROCESS ./tim
 FORK_PROCESS ./tick
 FORK_PROCESS ./s7_mgt -d -kconfig.txt
-FORK_PROCESS ./s7_log -n20 -td -s1000 -fmapgw.log
+FORK_PROCESS ./s7_log -n20 -td -s1000 -fsmsr_dsi.log
 FORK_PROCESS ./sctpn
 
 *FORK_PROCESS for m3ua, sccp, tcap, map will append by bootstrap script

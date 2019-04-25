@@ -22,7 +22,8 @@ COPY dpklnx.Z /opt/DSI/
 WORKDIR /opt/DSI
 RUN set -xe \
  && dpkg --add-architecture i386 \
- && apt-get update && apt-get install -y --auto-remove libc6-i386 lksctp-tools:i386 nano \
+ && apt-get update && apt-get install -y --auto-remove libc6-i386 lksctp-tools:i386 nano tzdata \
+ && ln -sf /usr/share/zoneinfo/Europe/Moscow /etc/localtime \
  && rm -rf /var/lib/apt/lists/* \
  && tar --no-same-owner -zxvf dpklnx.Z \
  && echo "/opt/DSI/32" >> /etc/ld.so.conf \
