@@ -35,12 +35,12 @@ RUN set -xe \
 #
 # copy config files and scripts into image
 #
-COPY system.txt config.txt sms_router.lic bootstrap.sh start_gctload.sh /opt/DSI/
+COPY system.txt config.txt sms_router.lic bootstrap.sh /opt/DSI/
 #WORKDIR DSI
 #RUN set -xe \
 #        && make map_user
 
-#ENTRYPOINT ["./bootstrap.sh"]
+ENTRYPOINT ["./bootstrap.sh"]
 
 #TODO:
 #

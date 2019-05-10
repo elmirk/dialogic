@@ -10,6 +10,23 @@
 # 26/03/2019 ---- Elmir Karimullin ----Initial version #
 ########################################################
 
+
+
+# SIGTERM-handler
+term_handler() {
+#  if [ $pid -ne 0 ]; then
+#    kill -SIGTERM "$pid"
+#    wait "$pid"
+    #  fi
+    echo 'ss7 container receive SIGTERM...'
+    ./gctload -x
+    exit 143; # 128 + 15 -- SIGTERM
+}
+
+
+trap 'term_handler' SIGTERM
+
+
 #if ENV not set use DEV as default one
 [[ -z "${DIALOGIC_STAGE}" ]] && MyVar='DEV' || MyVar="${DIALOGIC_STAGE}"
 
@@ -47,4 +64,7 @@ fi
 echo -e $Lic >> system.txt
 echo -e "finished ok"
 
-./start_gctload.sh
+#./start_gctload.sh
+./gctload -d &
+wait
+#pid="$!"

@@ -1,3 +1,7 @@
+* config.txt
+* author: Elmir Karimullin, elmir.karimullin@gmail.com
+* modified: 07/05/2019
+*
 **********************************************************************
 *                      config.txt                                    *
 **********************************************************************
@@ -70,9 +74,11 @@ SCCP_SSR 5 RSS 14140 0x06 0
 *
 * 1: smsrouter SCCP GT pattern
 * 2: smsc SCCP GT pattern
-*
+* 3: tmt hlr SCCP GT pattern
+
 SCCP_GTT_PATTERN 1 0x12 0x0000 0x06 0x001104 79506651029
 SCCP_GTT_PATTERN 2 0x12 0x0000 0x08 0x001104 79506651010
+SCCP_GTT_PATTERN 3 0x12 0x0000 0x06 0x001104 79506651020
 
 *translated-to addresses
 * 1: smsrouter DPC
@@ -80,11 +86,13 @@ SCCP_GTT_PATTERN 2 0x12 0x0000 0x08 0x001104 79506651010
 *
 SCCP_GTT_ADDRESS 1 0x11 14146 0 0x001104 -
 SCCP_GTT_ADDRESS 2 0x11 14140 0 0x001104 -
+SCCP_GTT_ADDRESS 3 0x11 14140 0 0x001104 -
 
 * sccp gt translation rules
 
 SCCP_GTT 1 K 1
 SCCP_GTT 2 K 2
+SCCP_GTT 3 K 3
 
 **********************************************************************
 *                            SCCP trace                              *
@@ -122,7 +130,7 @@ TCAP_TRACE 0x0 0x0 0x0
 MAP_CONFIG 0x0
 *
 * MAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
-MAP_TRACE 0x3 0x3 0x0
+MAP_TRACE 0x3 0x3 0xf7
 
 **********************************************************************
 *                      end of file                                   *
