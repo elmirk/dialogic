@@ -6,9 +6,10 @@
 
 #author: Elmir Karimullin, elmir.karimullin@gmail.com
 
-############# HISTORY ##################################
-# 26/03/2019 ---- Elmir Karimullin ----Initial version #
-########################################################
+############# HISTORY ###################################################################
+# 26/03/2019 ---- Elmir Karimullin ---- Initial version
+# 11/05/2019 ---- Elmir Karimullin ---- Added trap for SIGTERM, removed start_gctload.sh
+#########################################################################################
 
 
 
