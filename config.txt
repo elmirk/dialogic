@@ -105,16 +105,14 @@ SCCP_TRACE 0x0 0x4 0x7
 **********************************************************************
 * Configure TCAP Trace
 * TCAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
-* comented 17072017 TCAP_TRACE 0x7 0xf 0x0
-*tcap trace configuration moved to messages
-*TCAP_TRACE 0x7 0xf 0xf
 *
 *The use of the TCAP_CONFIG command is not required and TCAP is configured 
 *with default values if the TCAP_CONFIG command is not present.
 *example TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0000 0
 *
-*TCAP_TRACE 0x7 0x7 0x7
-TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0200 0
+*TCAP_CONFIG will be modified by bootstrap script
+*initial it was: TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0200 0
+TCAP_CONFIG
 TCAP_TRACE 0x0 0x0 0x0
 
 **********************************************************************

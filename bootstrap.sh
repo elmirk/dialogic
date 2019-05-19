@@ -63,6 +63,11 @@ FORK_PROCESS ./HSTBIN/map -t -d"
 fi
 
 echo -e $Lic >> system.txt
+
+#change TCAP_CONFIG line in config.txt
+Tcap_conf="TCAP_CONFIG 0x0000 ${TCAP_ODLGS_NUM} 0x8000 ${TCAP_IDLGS_NUM} 0x0200 0"
+sed -i "s/^TCAP_CONFIG.*/$Tcap_conf/" ./config.txt
+
 echo -e "finished ok"
 
 #./start_gctload.sh

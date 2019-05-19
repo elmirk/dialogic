@@ -8,4 +8,4 @@
 
 
 #run ss7 container on main prod server castor
-docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=PROD --rm --name=ss7 --ipc="host" --network="host" ss7:0.0.0
+docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=PROD -e TCAP_ODLGS_NUM=16000 -e TCAP_IDLGS_NUM=16000 --rm --name=ss7 --ipc="host" --network="host" ss7:0.0.0

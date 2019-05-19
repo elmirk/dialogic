@@ -44,8 +44,6 @@ ENTRYPOINT ["./bootstrap.sh"]
 
 #TODO:
 #
-#1. last line in Dockerfile should be CMD or ENTRYPOINT command where we
-#run map_user
 #2. check gctload sw guide - maybe should tune some params according it
 #
 
