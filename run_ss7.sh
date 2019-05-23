@@ -62,4 +62,4 @@ else
 fi
 
 #docker run
-docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=$1 -e SMSR_TCAP_ODLGS_NUM -e SMSR_TCAP_IDLGS_NUM --rm --name=ss7 --ipc="host" --network="host" ss7:0.0.0
+docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=$1 -e SMSR_TCAP_ODLGS_NUM -e SMSR_TCAP_IDLGS_NUM --name=ss7 --ipc="host" --network="host" ss7:0.0.0
