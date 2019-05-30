@@ -1,0 +1,10 @@
+[Unit]
+Description=SMSrouter
+After=docker.service
+
+[Service]
+EnvironmentFile=/opt/smsr/smsrconfig
+ExecStart=/usr/local/bin/start_smsr.sh
+
+[Install]
+WantedBy=default.target
