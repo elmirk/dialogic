@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #elmir.karimullin@gmail.com
+#script used to start ss7 docker container manually
 
 #SCRIPT USAGE:
 #to run ss7 in production use:
@@ -8,6 +9,11 @@
 #to run ss7 in dev use:
 # run_ss7.sh DEV
 
+#NOTES:
+#
+#1. not used --rm option in docker run,so when DOCKER STOP SS7 used to stop container
+#then container not deleted, should delete container by DOCKER RM SS7 before run it again by this script
+#2. if you delete container then you couldn't use DOCKER LOGS SS7 to fetch container logs
 
 #when use ELK
 #docker run -it --log-driver gelf --log-opt gelf-address=tcp://localhost:5000 -e DIALOGIC_STAGE=DEV --rm --name=dialogic --ipc="host" --network="host" dialogic:0.0.0 bash
@@ -62,4 +68,4 @@ else
 fi
 
 #docker run
-docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=$1 -e SMSR_TCAP_ODLGS_NUM -e SMSR_TCAP_IDLGS_NUM --name=ss7 --ipc="host" --network="host" ss7:0.0.0
+docker run -dit --log-driver=json-file --log-opt env=DIALOGIC_STAGE --log-opt max-size=10m --log-opt max-file=15 -e DIALOGIC_STAGE=$1 -e SMSR_TCAP_ODLGS_NUM -e SMSR_TCAP_IDLGS_NUM -e CONTAINER=ss7 --name=ss7 --ipc="host" --network="host" ss7:0.0.0

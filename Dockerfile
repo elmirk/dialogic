@@ -1,21 +1,6 @@
 FROM ubuntu:18.04
 
 #
-#RUN set -xe \
-#        && apt-get update && apt-get install -y gcc make  \
-#	&& tar -xvf otp_src_21.1.tar.gz \
-#        && cd otp_src_21.1 \
-#        && export ERL_TOP=`pwd` \
-#        && ./configure --without-termcap \
-#        && export TARGET=`erts/autoconf/config.guess` \
-#        && cd lib/erl_interface \
-#        && make opt \
-#        && make release RELEASE_PATH=/usr/local/lib/erlang \
-#        && rm /opt/otp_src_21.1.tar.gz \
-#        && rm -rf /var/cache/apt \
-#        && apt-get clean
-
-#
 # install dialogic gctload environment
 #
 COPY dpklnx.Z /opt/DSI/
@@ -34,11 +19,9 @@ RUN set -xe \
 
 #
 # copy config files and scripts into image
-#
+# .bashrc used for colorized [ss7] indicator in promt when connect to container
+COPY .bashrc /root/
 COPY system.txt config.txt sms_router.lic bootstrap.sh /opt/DSI/
-#WORKDIR DSI
-#RUN set -xe \
-#        && make map_user
 
 ENTRYPOINT ["./bootstrap.sh"]
 
