@@ -24,7 +24,7 @@ The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O
 - To configure DPC search the "Configure SCCP module" block.
 - To configure OPC search the "Define Remote Signaling Points" block.
 
-The IP addresses and SCTP ports are also defined in **config.txt** file.
+The IP addresses and SCTP ports of the "SMS Router" entity are also defined in **config.txt** file.
 
 ### SCTP multihoming feature
 
