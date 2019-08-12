@@ -18,11 +18,13 @@ The necessary binary files can be downloaded via the [following link](https://ww
 > **N.B.**:
 > The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utilite. 
 
+All of the files are protected by license files.
 
-### How to define the licence file?
+### How to define the license file?
 
 The path to the license file should be defined in **system.txt** file.
 
+The addition of the corresponding lines is done in [bootstrap.sh](https://github.com/kirlf/dialogic/blob/master/bootstrap.sh) file in this project.
 
 ### How to configure the signalling connection?
 
