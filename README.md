@@ -13,9 +13,16 @@ In other words, there is the signalling (**M3UA**) part of the connection in the
 
 This module is dependent on software by Dialogic company (https://www.dialogic.com/).
 
+The necessary binary files can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
+
+> N.B.
+> The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utilite. 
+
+
 ### How to define the licence file?
 
 The path to the license file should be defined in **system.txt** file.
+
 
 ### How to configure the signalling connection?
 
