@@ -35,7 +35,7 @@ The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O
 
 The IP addresses and SCTP ports of the "SMS Router" entity are also defined in **config.txt** file.
 
-### SCTP multihoming feature
+## SCTP multihoming feature
 
 The multihoming feature of the SCTP protocol \[1, p. 36\] can be used to implement smart transport backup scheme (fig. 1).
 
