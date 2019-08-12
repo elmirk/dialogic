@@ -15,7 +15,7 @@ This module is dependent on software by Dialogic company (https://www.dialogic.c
 
 The necessary binary files can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
 
-> N.B.
+> **N.B.**:
 > The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utilite. 
 
 
