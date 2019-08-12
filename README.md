@@ -11,6 +11,8 @@ This module is responsible to connect the **M**obile **S**witching **C**ontrolle
 
 In other words, there is the signalling part of the connection in the "SMS Router" project.
 
+The documentation about each of the protocols can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
+
 ## Dependencies 
 
 This module is dependent on software by Dialogic company (https://www.dialogic.com/).
@@ -30,10 +32,11 @@ The addition of the corresponding lines is done in **bootstrap.sh** file in this
 
 ### How to configure the signalling connection?
 
-The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O**riginating **P**oint **C**ode (**OPC**) of the MSC should be defined in the **config.txt** file:
+The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O**riginating **P**oint **C**ode (**OPC**) of the MSC should be defined in the **config.txt** file. Moreover, the **G**lobal **T**itle (**GT**) identifiers of "SMS Router", MSC/HLR and SMSC (SMS Center) should also be defined in considered file:
 
 - To configure DPC search the "Configure SCCP module" block.
 - To configure OPC search the "Define Remote Signaling Points" block.
+- To configure GT search the "SCCP GT translations" block.
 
 Moreover, "M3UA level configuration" block should also be configured.
 >**N.B.**: Do not mix up the OPC and DPC - this depends on the point of view on the message sending. 
@@ -48,6 +51,7 @@ For example:
 
 ``` bash
 LOCAL 0x2e	      * smsrouter
+LOCAL 0x5d	      * module id for health_check (run at once type app)
 ```
 This identifier should also be defined in user application ([**cnode**](https://github.com/elmirk/cnode) module in this project). 
 
