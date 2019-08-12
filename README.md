@@ -3,11 +3,13 @@ version 0.0 - prod ready
 ## The main purpose
 
 This module is responsible to connect the **M**obile **S**witching **C**ontroller (**MSC**) and the server with uploaded "SMS Router" software over the following protocols:
+- SCTP
+- M3UA
 - SCCP
 - TCAP
 - MAP
 
-In other words, there is the signalling (**M3UA**) part of the connection in the "SMS Router" project.
+In other words, there is the signalling part of the connection in the "SMS Router" project.
 
 ## Dependencies 
 
