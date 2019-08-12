@@ -2,7 +2,7 @@ version 0.0 - prod ready
 
 ## The main purpose
 
-This module is responsable to connect the **M**obile **S**witching **C**ontroller (**MSC**) and the server with "SMS Router" software over the following protocols:
+This module is responsible to connect the **M**obile **S**witching **C**ontroller (**MSC**) and the server with uploaded "SMS Router" software over the following protocols:
 - SCCP
 - TCAP
 - MAP
@@ -16,9 +16,9 @@ This module is dependent on software by Dialogic company (https://www.dialogic.c
 The necessary binary files can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
 
 > **N.B.**:
-> The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utilite. 
+> The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utility. 
 
-All of the files are protected by license files.
+All of the protocols are protected by license files.
 
 ### How to define the license file?
 
@@ -47,17 +47,19 @@ For example:
 ``` bash
 LOCAL 0x2e	      * smsrouter
 ```
-This identifier should also be defiened in user application ([**cnode**](https://github.com/elmirk/cnode) module in this project). 
+This identifier should also be defined in user application ([**cnode**](https://github.com/elmirk/cnode) module in this project). 
 
 >**N.B.**: The most of the options in **system.txt** file are defined by default.
 
 ## SCTP multihoming feature
 
-The multihoming feature of the SCTP protocol \[1, p. 36\] can be used to implement smart transport backup scheme (fig. 1).
+The multihoming feature of the SCTP protocol \[1, p. 36\] can be used to implement transport reservation scheme (fig. 1).
 
 <img src="https://raw.githubusercontent.com/kirlf/dialogic/master/doc/SMSR_Stand_Alone.png" width="600" />
 
 *Fig. 1. The structural scheme of the stand-alone backup. The source file is placed in the doc directory in xml format. Redesign can be done, for example, with use of http://www.newart.ru .*
+
+The second host is licensed addtionally.
 
 ## The structure of the module
 
