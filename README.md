@@ -34,11 +34,10 @@ The addition of the corresponding lines is done in **bootstrap.sh** file in this
 
 The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O**riginating **P**oint **C**ode (**OPC**) of the MSC should be defined in the **config.txt** file. Moreover, the **G**lobal **T**itle (**GT**) identifiers of "SMS Router", MSC/HLR and SMSC (SMS Center) should also be defined in considered file:
 
-- To configure DPC search the "Configure SCCP module" block.
-- To configure OPC search the "Define Remote Signaling Points" block.
+- To configure DPC search the "M3UA level configuration" and "Configure SCCP module" blocks.
+- To configure OPC search the "M3UA level configuration" and "Define Remote Signaling Points" blocks.
 - To configure GT search the "SCCP GT translations" block.
 
-Moreover, "M3UA level configuration" block should also be configured.
 >**N.B.**: Do not mix up the OPC and DPC - this depends on the point of view on the message sending. 
 
 The IP addresses and SCTP ports of the "SMS Router" entity are also defined in **config.txt** file.
