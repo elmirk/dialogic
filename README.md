@@ -24,7 +24,7 @@ All of the files are protected by license files.
 
 The path to the license file should be defined in **system.txt** file.
 
-The addition of the corresponding lines is done in [bootstrap.sh](https://github.com/kirlf/dialogic/blob/master/bootstrap.sh) file in this project.
+The addition of the corresponding lines is done in **bootstrap.sh** file in this project.
 
 ### How to configure the signalling connection?
 
@@ -32,6 +32,9 @@ The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O
 
 - To configure DPC search the "Configure SCCP module" block.
 - To configure OPC search the "Define Remote Signaling Points" block.
+
+Moreover, "M3UA level configuration" block should also be configured.
+>**N.B.**: Do not mix up the OPC and DPC - this depends on the point of view on the message sending. 
 
 The IP addresses and SCTP ports of the "SMS Router" entity are also defined in **config.txt** file.
 
