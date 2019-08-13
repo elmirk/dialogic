@@ -13,6 +13,22 @@ In other words, there is the signalling part of the connection in the "SMS Route
 
 The documentation about each of the protocols can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
 
+## The structure of the module
+
+This module is organized as the **docker**-container.
+
+To build the image run this in the directory with *Dockerfile*:
+
+```bash
+docker build -t ss7:0.0.0
+```
+
+To run the docker container use the corresponding script:
+
+``` bash
+./run_ss7.sh
+```
+
 ## Dependencies 
 
 This module is dependent on software by Dialogic company (https://www.dialogic.com/).
@@ -32,13 +48,11 @@ The addition of the corresponding lines is done in **bootstrap.sh** file in this
 
 ### How to configure the signalling connection?
 
-The **D**estination **P**oint **C**ode (**DPC**) of the "SMS Router" and the **O**riginating **P**oint **C**ode (**OPC**) of the MSC should be defined in the **config.txt** file. Moreover, the **G**lobal **T**itle (**GT**) identifiers of "SMS Router", MSC/HLR and SMSC (SMS Center) should also be defined in considered file:
+The **O**riginating **P**oint **C**ode (**OPC**) of the "SMS Router" and the **D**estination **P**oint **C**ode (**DPC**) of the MSC should be defined in the **config.txt** file. Moreover, the **G**lobal **T**itle (**GT**) identifiers of "SMS Router", MSC/HLR and SMSC (SMS Center) should also be defined in considered file:
 
 - To configure DPC search the "M3UA level configuration" and "Configure SCCP module" blocks.
 - To configure OPC search the "M3UA level configuration" and "Define Remote Signaling Points" blocks.
 - To configure GT search the "SCCP GT translations" block.
-
->**N.B.**: Do not mix up the OPC and DPC - this depends on the point of view on the message sending. 
 
 The IP addresses and SCTP ports of the "SMS Router" entity are also defined in **config.txt** file.
 
@@ -60,27 +74,11 @@ This identifier should also be defined in user application ([**cnode**](https://
 
 The multihoming feature of the SCTP protocol \[1, p. 36\] can be used to implement transport reservation scheme (fig. 1).
 
-<img src="https://raw.githubusercontent.com/kirlf/dialogic/master/doc/SMSR_Stand_Alone.png" width="600" />
+<img src="https://raw.githubusercontent.com/kirlf/dialogic/master/doc/SMSR%20Stand-Alone.png" width="600" />
 
 *Fig. 1. The structural scheme of the stand-alone backup. The source file is placed in the doc directory in xml format. Redesign can be done, for example, with use of http://www.newart.ru .*
 
 The second host is licensed addtionally.
-
-## The structure of the module
-
-This module is organized as the **docker**-container.
-
-To build the image run this in the directory with *Dockerfile*:
-
-```bash
-docker build -t ss7:0.0.0
-```
-
-To run the docker container use the corresponding script:
-
-``` bash
-./run_ss7.sh
-```
 
 ## Reference
 
