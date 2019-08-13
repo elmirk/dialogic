@@ -1,0 +1,6 @@
+all development now moved to /opt/smsrouter/ss7
+nothing should be done here!
+
+this folder is only for reference!
+
+

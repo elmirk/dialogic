@@ -1,0 +1,6 @@
+backup
+.tar.gz
+*.tar.gz
+.git
+WARNING.txt
+README.md
