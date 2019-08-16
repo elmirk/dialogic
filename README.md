@@ -35,16 +35,13 @@ This module is dependent on software by Dialogic company (https://www.dialogic.c
 
 The necessary binary files can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
 
-> **N.B.**:
-> The downloaded archive can be unpacked with use of the [tar](https://pingvinus.ru/answers/844) utility. 
-
 All of the protocols are protected by license files.
 
 ### How to define the license file?
 
 The path to the license file should be defined in **system.txt** file.
 
-The addition of the corresponding lines is done in **bootstrap.sh** file in this project.
+> **Attention**: The addition of the corresponding lines is done automaticaly in **bootstrap.sh** file in this project.
 
 ### How to configure the signalling connection?
 
@@ -68,7 +65,7 @@ LOCAL 0x5d	      * module id for health_check (run at once type app)
 ```
 This identifier should also be defined in user application ([**cnode**](https://github.com/elmirk/cnode) module in this project). 
 
->**N.B.**: The most of the options in **system.txt** file are defined by default.
+The most of the options in **system.txt** file are defined by default. More information can be obtained in *U10SSS-SwEnv-PM.pdf* file.
 
 ## SCTP multihoming feature
 
