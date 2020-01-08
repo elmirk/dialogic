@@ -28,7 +28,7 @@ RUN set -xe \
 # copy config files and scripts into image
 # .bashrc used for colorized [ss7] indicator in promt when connect to container
 COPY .bashrc /root/
-COPY system.txt config.txt sms_router.lic bootstrap.sh /opt/DSI/
+COPY system.txt config.txt CAMEL.lic bootstrap.sh /opt/DSI/
 
 # if need non root user inside ss7 container
 #RUN groupadd -r dialogic && useradd -rm -d /home/dialogic -s /usr/sbin/nologin -g dialogic dialogic \

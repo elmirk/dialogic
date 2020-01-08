@@ -1,25 +1,26 @@
-* config.txt
-* author: Elmir Karimullin, elmir.karimullin@gmail.com
-* modified: 07/05/2019
-*
 **********************************************************************
 *                      config.txt                                    *
 **********************************************************************
 *
 * SCTP level configuration
 *
-CNSYS:IPADDR=172.27.41.69,IPADDR2=172.27.41.49;
-SNSLI:SNLINK=1,IPADDR=172.27.32.35,IPADDR2=172.27.32.3,HPORT=2908,PPORT=2908,SNEND=C,SNTYPE=M3UA;
+CNSYS:IPADDR=172.27.41.186,IPADDR2=172.27.41.194;
+SNSLI:SNLINK=1,IPADDR=172.27.32.4,IPADDR2=172.27.32.36,HPORT=2907,PPORT=2907,SNEND=C,SNTYPE=M3UA;
 *
 * set timer between SCTP heartbeats = 5 min (default value = 1000 ms)
-CNTOS:TTYPE=SCTP,TO=HBT,TMSEC=300000;
+* CNTOS:TTYPE=SCTP,TO=HBT,TMSEC=300000;
 
-* M3UA level configuration
-*
-SNAPI:LAS=1,OPC=14146,TRMD=LS;
+**********************************************************************
+*                                M3UA                                *
+**********************************************************************
+SNAPI:LAS=1,OPC=14118,TRMD=LS;
 SNRAI:RAS=1,DPC=14140,TRMD=LS;
 SNALI:SNAL=1,RAS=1,SNLINK=1;
 SNLBI:SNLB=1,LAS=1,RAS=1;
+* Define any user provided Layer 4 protocol:
+* MTP_USER_PART  [NC]  <service_ind> <module_id>
+* when SCCP configured via messages need next config command here and no need to use when use SCCP_CONFIG :
+MTP_USER_PART 3 0x33
 
 **********************************************************************
 *                            SCCP                                    *
@@ -41,28 +42,28 @@ SNLBI:SNLB=1,LAS=1,RAS=1;
 *0x01 -- Send_User In Service (UIS)
 *SCCP_CONFIG 14133 0x8 0x0102 0x01
 *SCCP_CONFIG 14133 12 0x50000
-SCCP_CONFIG 14146 12 0xc0000 0x01
+*SCCP_CONFIG 14118 12 0xc0000 0x01
 
 * Define Remote Signaling Points:
 * SCCP_SSR <ssr_id> RSP <remote_spc> <flags> <pc_mask>
 *<flags> If set to 0, the heartbeat detection mechanism is disabled. This bit must always be set to zero if the resource is not an LSS.
 *Bits set to 0 indicate that the corresponding bit position in the transmit message destination point code must match the bit position of the <remote_spc>
 *OK
-SCCP_SSR 1 RSP 14140 0 0
+*SCCP_SSR 1 RSP 14140 0 0
 
 * Define Local Sub-Systems:
 * SCCP_SSR <ssr_id> LSS <local_ssn> <module_id> <flags> <protocol>
 * 0x5 -- map, 0x15 -- MAP id
-SCCP_SSR 2 LSS 0x08 0x2e 0 MAP
-SCCP_SSR 3 LSS 0x06 0x2e 0 MAP
+*SCCP_SSR 2 LSS 0x08 0x2e 0 MAP
+*SCCP_SSR 3 LSS 0x06 0x2e 0 MAP
 
 *SCCP_SSR 4 LSS 0x07 0x16 0 TCAP
-SCCP_SSR 6 LSS 0x93 0x2e 0 MAP
+*SCCP_SSR 6 LSS 0x93 0x2e 0 MAP
 
 * Define Remote Sub-Systems:
 * SCCP_SSR <ssr_id> RSS <remote_spc> <remote_ssn> <flags>
-SCCP_SSR 4 RSS 14140 0x08 0
-SCCP_SSR 5 RSS 14140 0x06 0
+*SCCP_SSR 4 RSS 14140 0x08 0
+*SCCP_SSR 5 RSS 14140 0x06 0
 
 *SCCP_SSR 5 RSS 14140 0x0
 
@@ -76,29 +77,30 @@ SCCP_SSR 5 RSS 14140 0x06 0
 * 2: smsc SCCP GT pattern
 * 3: tmt hlr SCCP GT pattern
 
-SCCP_GTT_PATTERN 1 0x12 0x0000 0x06 0x001104 79506651029
-SCCP_GTT_PATTERN 2 0x12 0x0000 0x08 0x001104 79506651010
-SCCP_GTT_PATTERN 3 0x12 0x0000 0x06 0x001104 79506651020
+*SCCP_GTT_PATTERN 1 0x12 0x0000 0x06 0x001104 79506651029
+*SCCP_GTT_PATTERN 2 0x12 0x0000 0x08 0x001104 79506651010
+*SCCP_GTT_PATTERN 3 0x12 0x0000 0x06 0x001104 79506651020
 
 *translated-to addresses
 * 1: smsrouter DPC
 * 2: msc DPC
 *
-SCCP_GTT_ADDRESS 1 0x11 14146 0 0x001104 -
-SCCP_GTT_ADDRESS 2 0x11 14140 0 0x001104 -
-SCCP_GTT_ADDRESS 3 0x11 14140 0 0x001104 -
+*SCCP_GTT_ADDRESS 1 0x11 14118 0 0x001104 -
+*SCCP_GTT_ADDRESS 2 0x11 14140 0 0x001104 -
+*SCCP_GTT_ADDRESS 3 0x11 14140 0 0x001104 -
 
 * sccp gt translation rules
 
-SCCP_GTT 1 K 1
-SCCP_GTT 2 K 2
-SCCP_GTT 3 K 3
+*SCCP_GTT 1 K 1
+*SCCP_GTT 2 K 2
+*SCCP_GTT 3 K 3
 
 **********************************************************************
 *                            SCCP trace                              *
 **********************************************************************
 
-SCCP_TRACE 0x0 0x4 0x7
+SCCP_TRACE 0x7 0x7 0x7
+INAP_TRACE 0xf 0xf 0x7f
 
 **********************************************************************
 *                            TCAP                                    *
@@ -112,8 +114,8 @@ SCCP_TRACE 0x0 0x4 0x7
 *
 *TCAP_CONFIG will be modified by bootstrap script
 *initial it was: TCAP_CONFIG 0x0000 8192 0x8000 8192 0x0200 0
-TCAP_CONFIG
-TCAP_TRACE 0x0 0x0 0x0
+*TCAP_CONFIG
+*TCAP_TRACE 0x0 0x0 0x0
 
 **********************************************************************
 *                            MAP                                     *
@@ -125,10 +127,10 @@ TCAP_TRACE 0x0 0x0 0x0
 *MAP_TRACE 0x7 0x7 0x7
 **********************************************************************
 * MAP_CONFIG <options>
-MAP_CONFIG 0x0
+*MAP_CONFIG 0x0
 *
 * MAP_TRACE <op_evt_mask> <ip_evt_mask> <non_prim_mask>
-MAP_TRACE 0x3 0x3 0xf7
+*MAP_TRACE 0x3 0x3 0xf7
 
 **********************************************************************
 *                      end of file                                   *

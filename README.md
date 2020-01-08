@@ -1,4 +1,39 @@
-version 0.0 - prod ready
+CamelGW
+=========
+
+# Table of contents
+1. [Introduction](#introduction)
+1. [Some paragraph](#paragraph1)
+    1. [Sub paragraph](#subparagraph1)
+1. [CamelGW software components](#components)
+1. [SIGTRAN data for interconnection between CamelGW and MSC](#sigtran)
+1. [Notes](#notes)
+1. [References](#refs)
+
+## This is the introduction <a name="introduction"></a>
+Some introduction text, formatted in heading 2 style
+
+## Some paragraph <a name="paragraph1"></a>
+The first paragraph text
+
+### Sub paragraph <a name="subparagraph1"></a>
+This is a sub paragraph, formatted in heading 3 style
+
+## CamelGW software components<a name="components"></a>
+
+---
+
+TBD!
+
+
+*List of components:*
+
+| Component     | Comment                                           |
+|---------------|---------------------------------------------------|
+| Docker engine | Used to run gctload in standalone docker container|
+| Tarantool     | NoSQL DB used to store services data |
+
+
 
 ## The main purpose
 
@@ -9,9 +44,33 @@ This module is responsible to connect the **M**obile **S**witching **C**ontrolle
 - TCAP
 - MAP
 
-In other words, there is the signalling part of the connection in the "SMS Router" project.
-
 The documentation about each of the protocols can be downloaded via the [following link](https://www.dialogic.com/signaling-and-ss7-components/download/dsi-interface-protocol-stacks).
+
+## SIGTRAN data for interconnection between CAMELGW and MSC<a name="sigtran"></a>
+
+---
+
+*M3UA asso data:*
+
+| CamelGW IP1   | CamelGw port1 | MSC IP1      | MSC port1 |
+|---------------|---------------|--------------|-----------|
+| 172.27.41.186 | 2907          | 172.27.32.4  | 2907      |
+| 172.27.41.194 | 2907          | 172.27.32.36 | 2907      |
+
+*Signalling Point Codes:*
+
+|     | CamelGW | MSC   |
+|-----|---------|-------|
+| SPC | 14118   | 14140 |
+
+
+*Used VLANs (CamelGW):*
+
+| VLAN ID  | Subnet           | Gateway       |
+| ---------|------------------|---------------|
+| 338      | 172.27.41.192/29 | 172.27.41.198 |
+| 349      | 172.27.41.184/29 | 172.27.41.190 |
+
 
 ## The structure of the module
 
@@ -77,6 +136,20 @@ The multihoming feature of the SCTP protocol \[1, p. 36\] can be used to impleme
 
 The second host is licensed addtionally.
 
-## Reference
 
-[1] Stevens, W. Richard, Bill Fenner, and Andrew M. Rudoff. [UNIX Network Programming: The Sockets Networking API](https://books.google.ru/books?hl=ru&lr=&id=ptSC4LpwGA0C&oi=fnd&pg=PR17&dq=stevens+unix+network&ots=Kt6CNldmRm&sig=sUeB7wr8sXsdaPyB6B-ZJw6QmGY&redir_esc=y#v=onepage&q=stevens%20unix%20network&f=false). Vol. 1. Addison-Wesley Professional, 2004.
+## Notes<a name="notes"></a>
+
+---
+
+should set some kernel parameters according to Dialogic SW manual
+before starting ss7 container
+
+```
+sysctl -w kernel.msgmnb=800000
+```
+
+## References<a name="refs"></a>
+
+---
+
+[1] TBD!

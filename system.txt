@@ -1,63 +1,58 @@
 ********************************************************************************
 *
-* Dummy System Configuration File (system.txt) for use with
-* the DSI Development Package.
+* system.txt file for camelgw core system
 *
-* Updated by Elmir Karimullin, elmir.karimullin@gmail.com, 25/04/2019
-* During deployment in docker modified automatically for DEV/PROD environments
-* TODO:
-* prepare headers like in config.txt
-* investigate values for num msg and num lmsg possible to use in prod! in o*dkcer
-*
+* last update 04.04.2018
+* Updated by Elmir Karimullin 2015
 ********************************************************************************
+
 VERIFY
 LOCAL 0x00            * tim - Timer task
 *
 * Optional modules running on the host:
 *
 LOCAL 0xcf            * s7_mgt - Management/config task
-*LOCAL 0xc2
 LOCAL 0xef            * s7_log - Display and logging utility  
-LOCAL 0x5d	      * module id for health_check (run at once type app)
+LOCAL 0x3d            * module id for camelgw core application
+LOCAL 0x5d	      * module id for status_checker application (run at once type app)
+LOCAL 0x6d	      * dummy module, we will use this module for link between gctload and other world, for configureing, for collecting event data and other
 LOCAL 0x2d            * dsistat
-LOCAL 0x2e	      * smsrouter
-*LOCAL 0xed	      * monitor module (user application)
+LOCAL 0xed	      * user application: sniffer module - tcap module sent to this module trace messages (sniffa - daemon type app)
 *
-* Modules for ss7 stack:
+* ss7 stack modules running on the host:
 *
 LOCAL 0xd1            * SCTP native
 LOCAL 0xd2            * M3UA module
 LOCAL 0x33            * SCCP module
 LOCAL 0x14            * TCAP module
-LOCAL 0x15            * MAP module
-xo*
+LOCAL 0x35            * INAP module
+
 * For SIGTRAN systems using SCTPN the following REDIRECT is required:
 REDIRECT 0xd0 0xd1
 
 * redirect MTP3 to M3UA
 REDIRECT 0x22 0xd2
 REDIRECT 0xc2 0xd2
+
 * Redirection of status indications:
 *
-REDIRECT        0xdf    0xef    * LIU/MTP2 status messages -> s7_log
+REDIRECT        0xdf    0x6d    * LIU/MTP2 status messages -> s7_log
 *
-DEFAULT_MODULE  0xef            * Redirect messages by default to module 0xef
+DEFAULT_MODULE  0x6d            * Redirect messages by default to module 0x6d
 *
 * Dimensioning the Message Passing Environment:
 *
-* Number of standard size messages in the environment
-NUM_MSGS        5000 
-* Number of 'long' messages (used for certain TCAP based applications)
-NUM_LMSGS      2000
-VERIFY
+NUM_MSGS        65000
+NUM_LMSGS      1000
 *
 * Now start-up all local tasks:
 *
 FORK_PROCESS ./tim
 FORK_PROCESS ./tick
 FORK_PROCESS ./s7_mgt -d -kconfig.txt
-FORK_PROCESS ./s7_log -n20 -td -s1000 -fsmsr_dsi.log
+FORK_PROCESS ./s7_log -n20 -td -s1000 -fcamelgw.log
 FORK_PROCESS ./sctpn
-
-*FORK_PROCESS for m3ua, sccp, tcap, map will append by bootstrap script
-*depend on ENV variable DIALOGIC_STAGE
+FORK_PROCESS ./HSTBIN/m3ua -Lp/opt/DSI -d
+FORK_PROCESS ./HSTBIN/sccp -Lp/opt/DSI -d
+FORK_PROCESS ./HSTBIN/tcap -Lp/opt/DSI -d
+FORK_PROCESS ./HSTBIN/inap -Lp/opt/DSI -d

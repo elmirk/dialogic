@@ -26,52 +26,7 @@ term_handler() {
 
 trap 'term_handler' SIGTERM
 
-
-#if ENV not set use DEV as default one
-[[ -z "${DIALOGIC_STAGE}" ]] && MyVar='DEV' || MyVar="${DIALOGIC_STAGE}"
-
-if [ $MyVar == 'DEV' ]
-then
-echo "DIALOGIC_STAGE=DEV"
-echo "Will use trial license and minimal number of IPC messages"
-Lic="FORK_PROCESS ./HSTBIN/m3ua -t -d\n\
-FORK_PROCESS ./HSTBIN/sccp -t -d\n\
-FORK_PROCESS ./HSTBIN/tcap -t -d\n\
-FORK_PROCESS ./HSTBIN/map -t -d"
-#value range for NUM_MSGS (100 ... 65000)
-sed -i "s/^NUM_MSGS.*/NUM_MSGS 100/" ./system.txt
-#value range for NUM_MSGS (100 ... 65000)
-sed -i "s/^NUM_LMSGS.*/NUM_LMSGS 100/" ./system.txt
-elif [ $MyVar == 'PROD' ]
-then
-echo "DIALOGIC_STAGE=PROD"
-echo "Will use commercial license"
-Lic="FORK_PROCESS ./HSTBIN/m3ua -Lp/opt/DSI -d\n\
-FORK_PROCESS ./HSTBIN/sccp -Lp/opt/DSI -d\n\
-FORK_PROCESS ./HSTBIN/tcap -Lp/opt/DSI -d\n\
-FORK_PROCESS ./HSTBIN/map  -Lp/opt/DSI -d"
-
-else
-echo "DIALOGIC_STAGE=WRONG"
-echo "Will use trial license"
-Lic="FORK_PROCESS ./HSTBIN/m3ua -t -d\n\
-FORK_PROCESS ./HSTBIN/sccp -t -d\n\
-FORK_PROCESS ./HSTBIN/tcap -t -d\n\
-FORK_PROCESS ./HSTBIN/map -t -d"
-
-fi
-
-echo -e $Lic >> system.txt
-
-#change TCAP_CONFIG line in config.txt
-Tcap_conf="TCAP_CONFIG 0x0000 ${SMSR_TCAP_ODLGS_NUM} 0x8000 ${SMSR_TCAP_IDLGS_NUM} 0x0200 0"
-sed -i "s/^TCAP_CONFIG.*/$Tcap_conf/" ./config.txt
-
-echo -e "finished ok"
-
-#./start_gctload.sh
-#exec su - dialogic -c "./gctload -d &"
-
 ./gctload -d &
 wait
+
 #pid="$!"
