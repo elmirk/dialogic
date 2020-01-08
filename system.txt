@@ -30,7 +30,7 @@ LOCAL 0xd2            * M3UA module
 LOCAL 0x33            * SCCP module
 LOCAL 0x14            * TCAP module
 LOCAL 0x15            * MAP module
-*
+xo*
 * For SIGTRAN systems using SCTPN the following REDIRECT is required:
 REDIRECT 0xd0 0xd1
 

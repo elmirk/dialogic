@@ -29,8 +29,14 @@ RUN set -xe \
 # .bashrc used for colorized [ss7] indicator in promt when connect to container
 COPY .bashrc /root/
 COPY system.txt config.txt sms_router.lic bootstrap.sh /opt/DSI/
-ENTRYPOINT ["./bootstrap.sh"]
 
+# if need non root user inside ss7 container
+#RUN groupadd -r dialogic && useradd -rm -d /home/dialogic -s /usr/sbin/nologin -g dialogic dialogic \
+#    && chown -R dialogic:dialogic /opt/DSI/
+#USER dialogic
+
+ENTRYPOINT ["./bootstrap.sh"]
+#CMD ["dialogic"]
 #TODO:
 #
 #2. check gctload sw guide - maybe should tune some params according it

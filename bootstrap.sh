@@ -1,10 +1,9 @@
 #!/bin/bash
-
+set -e
 #boostrap system.txt file
 #1. modify NUM_MSGS and NUM_LMSGS
 #2. add last lines with process forking under license control
 
-#author: Elmir Karimullin, elmir.karimullin@gmail.com
 
 ############# HISTORY ###################################################################
 # 26/03/2019 ---- Elmir Karimullin ---- Initial version
@@ -71,6 +70,8 @@ sed -i "s/^TCAP_CONFIG.*/$Tcap_conf/" ./config.txt
 echo -e "finished ok"
 
 #./start_gctload.sh
+#exec su - dialogic -c "./gctload -d &"
+
 ./gctload -d &
 wait
 #pid="$!"
